@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nr-oh-rt
+  namespace: node-red-oh
+spec:
+  path: /
+  to:
+    kind: Service
+    name: nr-oh-service
+  port:
+    targetPort: 1880-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

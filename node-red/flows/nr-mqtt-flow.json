@@ -1,0 +1,370 @@
+[
+    {
+        "id": "61518687e261a14d",
+        "type": "tab",
+        "label": "MQTT Test",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "09e726e3a33e18b0",
+        "type": "mqtt out",
+        "z": "61518687e261a14d",
+        "name": "",
+        "topic": "tjbot-oh/environment",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "708cf4d443a2b58b",
+        "x": 360,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a7cac03159255224",
+        "type": "inject",
+        "z": "61518687e261a14d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "09e726e3a33e18b0"
+            ]
+        ]
+    },
+    {
+        "id": "8212bf3c7951dde2",
+        "type": "mqtt in",
+        "z": "61518687e261a14d",
+        "name": "",
+        "topic": "tjbot-oh/environment",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "708cf4d443a2b58b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "0ab841979a50ea7f"
+            ]
+        ]
+    },
+    {
+        "id": "aae42662a95ecf8f",
+        "type": "debug",
+        "z": "61518687e261a14d",
+        "name": "IoT Event",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "1ab369e364acf7a2",
+        "type": "comment",
+        "z": "61518687e261a14d",
+        "name": "MQTT Config",
+        "info": "# Use following WebSocket in the MQTT Config\n\nwss://mqtt.pai-6c8d693d44c9987a0f5d51e2cb268c36-0000.eu-de.containers.appdomain.cloud/mqtt",
+        "x": 110,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "0ab841979a50ea7f",
+        "type": "json",
+        "z": "61518687e261a14d",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 240,
+        "wires": [
+            [
+                "aae42662a95ecf8f",
+                "5a6e42bca4cb228f"
+            ]
+        ]
+    },
+    {
+        "id": "5a6e42bca4cb228f",
+        "type": "cloudantplus out",
+        "z": "61518687e261a14d",
+        "name": "Store Environment",
+        "cloudant": "370a89aff940fdb4",
+        "database": "pai2022-environment",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 510,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46c8d894532d05cf",
+        "type": "mqtt in",
+        "z": "61518687e261a14d",
+        "name": "",
+        "topic": "tjbot-oh/motions",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "708cf4d443a2b58b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "2aea95ea77697d5a"
+            ]
+        ]
+    },
+    {
+        "id": "183a8f47b1b360ec",
+        "type": "debug",
+        "z": "61518687e261a14d",
+        "name": "IoT Event",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2aea95ea77697d5a",
+        "type": "json",
+        "z": "61518687e261a14d",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 310,
+        "y": 380,
+        "wires": [
+            [
+                "183a8f47b1b360ec",
+                "0f337719279e84d3"
+            ]
+        ]
+    },
+    {
+        "id": "0f337719279e84d3",
+        "type": "cloudantplus out",
+        "z": "61518687e261a14d",
+        "name": "Store Motions",
+        "cloudant": "370a89aff940fdb4",
+        "database": "pai2022-motions",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 500,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1806109f5654b9f",
+        "type": "mqtt in",
+        "z": "61518687e261a14d",
+        "name": "",
+        "topic": "#",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "b36eb4b874379588",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 560,
+        "wires": [
+            [
+                "be21775e1be5fcd6"
+            ]
+        ]
+    },
+    {
+        "id": "7f4a736134d1265f",
+        "type": "debug",
+        "z": "61518687e261a14d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "3c8665f63bd43786",
+        "type": "mqtt out",
+        "z": "61518687e261a14d",
+        "name": "",
+        "topic": "Test",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "b36eb4b874379588",
+        "x": 290,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "e2fa0643dafaa5c4",
+        "type": "inject",
+        "z": "61518687e261a14d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 640,
+        "wires": [
+            [
+                "3c8665f63bd43786"
+            ]
+        ]
+    },
+    {
+        "id": "be21775e1be5fcd6",
+        "type": "json",
+        "z": "61518687e261a14d",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 250,
+        "y": 560,
+        "wires": [
+            [
+                "7f4a736134d1265f"
+            ]
+        ]
+    },
+    {
+        "id": "708cf4d443a2b58b",
+        "type": "mqtt-broker",
+        "name": "MQTT-HIVEMQ-CE",
+        "broker": "wss://mqttce-mqttce.pai-6c8d693d44c9987a0f5d51e2cb268c36-0000.eu-de.containers.appdomain.cloud/mqtt",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "370a89aff940fdb4",
+        "type": "cloudantplus",
+        "host": "https://apikey-v2-61o9yjo0fw01cp5im79sccdvmxiwg9z4jp8nrenxgbe:631c5537d0266a53ed79bc287041cd41@a795d945-7192-4d6f-82d7-33375e90c3ec-bluemix.cloudantnosqldb.appdomain.cloud",
+        "name": "Cloudant PAI ",
+        "useapikey": true
+    },
+    {
+        "id": "b36eb4b874379588",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "wss://wss-mqtt.ocp-demo-fra-7bb5e23da300af2b0ef602f5671a8aa6-0000.eu-de.containers.appdomain.cloud",
+        "port": "8080",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

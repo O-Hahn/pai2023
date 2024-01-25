@@ -1,0 +1,14 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: node-red
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - name: "1.0"
+    from:
+      kind: DockerImage
+      name: ohahnat/pai-nodered:node-red-build
+    referencePolicy:
+      type: Source

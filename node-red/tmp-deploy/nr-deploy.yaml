@@ -1,0 +1,73 @@
+kind: DeploymentConfig
+apiVersion: apps.openshift.io/v1
+metadata:
+  annotations:
+    app.openshift.io/route-disabled: 'false'
+    openshift.io/generated-by: OpenShiftWebConsole
+  name: nr-oh
+  namespace: node-red-oh
+  labels:
+    app: nr-oh
+    app.kubernetes.io/component: nr-oh
+    app.kubernetes.io/instance: nr-oh
+    app.kubernetes.io/name: nr-oh
+    app.kubernetes.io/part-of: nr-oh
+    app.openshift.io/runtime: 3scale
+    app.openshift.io/runtime-namespace: node-red-oh
+    app.openshift.io/runtime-version: node-red-build
+spec:
+  strategy:
+    type: Rolling
+    rollingParams:
+      updatePeriodSeconds: 1
+      intervalSeconds: 1
+      timeoutSeconds: 600
+      maxUnavailable: 25%
+      maxSurge: 25%
+    resources: {}
+    activeDeadlineSeconds: 21600
+  triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+          - nr-oh
+        from:
+          kind: ImageStreamTag
+          namespace: node-red-oh
+          name: 'node-red:1.0'
+    - type: ConfigChange
+  replicas: 1
+  revisionHistoryLimit: 10
+  test: false
+  selector:
+    app: nr-oh
+    deploymentconfig: nr-oh
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nr-oh
+        deploymentconfig: nr-oh
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nr-oh-pvc
+      containers:
+        - name: nr-oh
+          ports:
+            - containerPort: 1880
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler

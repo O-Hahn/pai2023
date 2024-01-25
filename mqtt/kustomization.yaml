@@ -1,0 +1,7 @@
+resources:
+- pvc.yaml
+- config.yaml
+- password.yaml
+- deployment.yaml
+- services.yaml
+- route.yaml
